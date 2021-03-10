@@ -1,0 +1,55 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Select Company:</label>
+            <select [(ngModel)]="productModel.companyId" (change)="OnCompanySelect($event)" class="form-control">
+                <option disabled value="0">-- Select Company --</option>
+                <option value="{{x.id}}" *ngFor="let x of companyList">{{x.companyName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Select Brand:</label>
+            <select formControlName="brandid" [(ngModel)]="productModel.brandId" class="form-control">
+                <option disabled value="0">-- Select Brand --</option>
+                <option value="{{t.id}}" *ngFor="let t of brandList">{{t.brandName}}</option>
+            </select>
+            <div *ngIf="brandid.invalid && (brandid.dirty || brandid.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Select one!</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Name:</label>
+            <input [(ngModel)]="productModel.name" formControlName="productname" type="text" class="form-control" />
+            <div *ngIf="productname.invalid && (productname.dirty || productname.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Field required</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Amount:</label>
+            <input [(ngModel)]="productModel.amount" formControlName="productamount" type="text" class="form-control" />
+            <div *ngIf="productamount.invalid && (productamount.dirty || productamount.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Field required</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Price:</label>
+            <input [(ngModel)]="productModel.price" formControlName="productprice" type="text" class="form-control" />
+            <div *ngIf="productprice.invalid && (productprice.dirty || productprice.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Field required</p>
+            </div>
+
+            <button [disabled]="!form.valid" class="btn btn-success mt-2">Add Product</button>
+        </div>
+    </form>
+
+    <div *ngIf="responseModel">
+        <div *ngIf="responseModel.status === true">
+            <p style="color:green">Successfully done!</p>
+        </div>
+        <div *ngIf="responseModel.status === false">
+            <p style="color:red">Error occurred: {{responseModel.error}}</p>
+        </div>
+    </div>
+
+</div>

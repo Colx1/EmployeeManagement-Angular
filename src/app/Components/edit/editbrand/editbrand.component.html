@@ -1,0 +1,32 @@
+<div class="container mt-2">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Select Company:</label>
+            <select formControlName="companyid" [(ngModel)]="brandModel.companyId" class="form-control">
+                <option selected disabled value="0">-- Select company --</option>
+                <option value="{{x.id}}" *ngFor="let x of companyList">{{x.companyName}}</option>
+            </select>
+            <div *ngIf="companyid.invalid && (companyid.dirty || companyid.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Select one!</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Brand Name:</label>
+            <input formControlName="brandname" [(ngModel)]="brandModel.brandName" type="text" class="form-control" />
+            <div *ngIf="brandname.invalid && (brandname.dirty || brandname.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Field required</p>
+            </div>
+            <button [disabled]="!form.valid" class="btn btn-primary mt-2">Update Brand</button>
+        </div>
+    </form>
+    <button [routerLink]="['/list']" class="btn btn-dark mt-5">Back</button>
+    <div *ngIf="responseModel">
+        <div *ngIf="responseModel.status === true">
+            <p style="color:green">Successfully done!</p>
+        </div>
+        <div *ngIf="responseModel.status === false">
+            <p style="color:red">Error occurred: {{responseModel.error}}</p>
+        </div>
+    </div>
+</div>

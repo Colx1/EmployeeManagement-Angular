@@ -1,0 +1,21 @@
+<div class="container">
+    <form #formCompany [formGroup]="form" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+            <label>Company Name:</label>
+            <input formControlName="companyname" type="text" class="form-control" [(ngModel)]="companyModel.companyName"/>
+            <div *ngIf="companyname.invalid && 
+            (companyname.dirty || companyname.touched)" style="color: rgb(219, 67, 67);">
+                <p>Error: Field required</p>
+            </div>
+            <button [disabled]="!form.valid" type="submit" class="btn btn-success mt-2">Add Company</button>
+        </div>
+    </form>
+    <div *ngIf="responseModel">
+        <div *ngIf="responseModel.status === true">
+            <p style="color:green">Successfully done!</p>
+        </div>
+        <div *ngIf="responseModel.status === false">
+            <p style="color:red">Error occurred: {{responseModel.error}}</p>
+        </div>
+    </div>
+</div>
